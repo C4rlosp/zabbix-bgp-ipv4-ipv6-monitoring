@@ -25,7 +25,7 @@ zabbix-bgp-ipv4-ipv6-template-crix/
 └── docs/
     └── how-it-works.md
 
-⚖ Requisitos
+⚙️ Requisitos
 
 Zabbix 6.0 o 7.0
 
@@ -37,13 +37,47 @@ MIB CISCO-BGP4-MIB activa
 
 🔄 Instalación
 
-Importa el archivo YAML en Zabbix: Configuration → Templates → Import
+Ir a Data Collection → Templates y crear manualmente un nuevo template llamado Template SNMP BGP IPv4-IPv6 Auto-Discovery.
 
-Asigna el template al host Cisco con SNMPv2 habilitado
+Dentro del template, crear primero el value mapping llamado BGP Session State con los siguientes valores:
 
-Asegura que la comunidad SNMP y la ACL permiten el acceso
+Valor
 
-Espera la ejecución del discovery (cada 5 min por defecto)
+Estado
+
+1
+
+Idle
+
+2
+
+Connect
+
+3
+
+OpenSent
+
+4
+
+OpenConfirm
+
+5
+
+Active
+
+6
+
+Established
+
+Luego, importar el archivo YAML: Configuration → Templates → Import
+
+Zabbix solicitará reemplazar el template existente (mismo nombre). Hacer clic en Sí para que mantenga el value mapping y actualice el template.
+
+Asignar el template al host Cisco con SNMPv2 habilitado
+
+Asegurar que la comunidad SNMP y la ACL permiten el acceso
+
+Esperar la ejecución del discovery (cada 5 min por defecto)
 
 🚀 Ejemplo de monitoreo
 
@@ -53,7 +87,7 @@ ASN remoto del peer (cbgpPeer2RemoteAs)
 
 Prefijos aceptados (cbgpPeer2AcceptedPrefixes)
 
-🌎 Comunidad y autor
+🌐 Comunidad y autor
 
 Desarrollado por el equipo técnico del CRIX – https://crix.crContact: Carlos Pérez @C4rlosp
 
