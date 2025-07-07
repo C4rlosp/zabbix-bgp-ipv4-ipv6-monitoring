@@ -1,20 +1,20 @@
-Zabbix BGP IPv4/IPv6 SNMP Template for Cisco Routers (CRIX)
+Zabbix BGP IPv4/IPv6 SNMP plantilla para Cisco Routers
 
-Official Zabbix template developed and tested by CRIX (Costa Rica Internet Exchange) for monitoring BGP IPv4 and IPv6 sessions on Cisco routers using SNMPv2.
+Plantilla oficial desarrollada y testeada por un IXP para ayudar al monitoreo de sesiones BGP en IPv4 & IPv6 utilizando routers Cisco con SNMPv2.
 
-✨ Features
+✨ Características
 
-✅ Auto-discovery of BGP peers (IPv4 & IPv6)
+✅ Descubrimiento automático de peers BGP (IPv4 & IPv6)
 
-✅ Monitors BGP session state, remote ASN, and accepted prefixes
+✅ Monitorea el estado de sesión BGP, ASN remoto y prefijos aceptados
 
-✅ Triggers alerts if a session is not in Established state
+✅ Genera alertas si una sesión no está en estado Established
 
-✅ Uses value mapping for clear BGP state names
+✅ Usa value mapping para mostrar estados BGP legibles
 
-✅ Designed for Cisco IOS XR (tested on NCS-5501)
+✅ Diseñado para Cisco IOS XR (probado en NCS-5501)
 
-📁 Files included
+📁 Archivos incluidos
 
 zabbix-bgp-ipv4-ipv6-template-crix/
 ├── templates/
