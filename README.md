@@ -1,6 +1,6 @@
 Zabbix BGP IPv4/IPv6 SNMP plantilla para Cisco Routers
 
-Plantilla oficial desarrollada y testeada por un IXP para ayudar al monitoreo de sesiones BGP en IPv4 & IPv6 utilizando routers Cisco con SNMPv2.
+Plantilla oficial desarrollada y testeada por CRIX (Costa Rica Internet Exchange) para ayudar al monitoreo de sesiones BGP en IPv4 & IPv6 utilizando routers Cisco con SNMPv2.
 
 ✨ Características
 
@@ -79,6 +79,24 @@ Asegurar que la comunidad SNMP y la ACL permiten el acceso
 
 Esperar la ejecución del discovery (cada 5 min por defecto)
 
+⚙️ Cómo funciona
+
+El template utiliza SNMPv2 para consultar la tabla extendida cbgpPeer2Table de la MIB CISCO-BGP4-MIB.
+
+La regla de descubrimiento identifica automáticamente todos los peers BGP IPv4 e IPv6 activos usando cbgpPeer2RemoteAddr.
+
+Por cada peer descubierto, Zabbix genera tres elementos:
+
+Estado de sesión (cbgpPeer2State)
+
+ASN remoto (cbgpPeer2RemoteAs)
+
+Prefijos aceptados (cbgpPeer2AcceptedPrefixes)
+
+Si la sesión no está en estado Established (6), se dispara una alerta.
+
+El estado de la sesión se muestra con nombres legibles usando el Value Mapping BGP Session State.
+
 🚀 Ejemplo de monitoreo
 
 Estado de sesión BGP (cbgpPeer2State)
@@ -94,3 +112,4 @@ Desarrollado por: Carlos Pérez @C4rlosp
 📝 Licencia
 
 MIT. Puedes usar, modificar y compartir libremente este template.
+
