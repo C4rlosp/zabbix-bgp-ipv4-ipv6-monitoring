@@ -1,0 +1,66 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: daa243e644e146dd9c6f301e9c95e4e6
+    name: Network Devices CRIX-NIC
+  templates:
+  - uuid: 1322b4aa5c7c4253b1f65cb26838b37a
+    template: Template SNMP BGP IPv4-IPv6 Auto-Discovery
+    name: Template SNMP BGP IPv4-IPv6 Auto-Discovery
+    description: "Template unificado para monitoreo automatico de sesiones BGP\
+      \ IPv4 e IPv6 en routers Cisco usando SNMPv2 y la MIB extendida CISCO-BGP4-MIB.\
+      \ Detecta dinamicamente nuevos peers mediante cbgpPeer2RemoteAddr y verifica\
+      \ su estado (Established, Idle, etc.), ASN remoto y prefijos aceptados."
+    groups:
+    - name: Network Devices CRIX-NIC
+    discovery_rules:
+    - uuid: e4140d62fa8748dbb51f70a48d63c95f
+      name: BGP Peer Discovery (IPv4 & IPv6)
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.9.9.187.1.2.5.1.2
+      key: bgp.peer.discovery
+      delay: 5m
+      item_prototypes:
+      - uuid: c789d86d65b0429ab13f3623766731b0
+        name: BGP session state with {#BGPPEER}
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.9.9.187.1.2.5.1.19.{#SNMPINDEX}
+        key: bgp.peer.state[{#SNMPINDEX}]
+        delay: 5m
+        valuemap:
+          name: BGP Session State
+        trigger_prototypes:
+        - uuid: 312cc5ea33504c589a6a7ef29acc7e3d
+          expression: last(/Template SNMP BGP IPv4-IPv6 Auto-Discovery/bgp.peer.state[{#SNMPINDEX}])<>6
+          recovery_mode: RECOVERY_EXPRESSION
+          recovery_expression: last(/Template SNMP BGP IPv4-IPv6 Auto-Discovery/bgp.peer.state[{#SNMPINDEX}])=6
+          name: BGP peer {#BGPPEER} is NOT Established
+          event_name: BGP peer {#BGPPEER} is NOT Established
+      - uuid: 5fc7d4e61da54a51ab64a6ff412ab595
+        name: Remote ASN for {#BGPPEER}
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.9.9.187.1.2.5.1.6.{#SNMPINDEX}
+        key: bgp.peer.remote_as[{#SNMPINDEX}]
+        delay: 5m
+      - uuid: 3c53ec8e97114df98d4939b70fbc4601
+        name: Accepted Prefixes from {#BGPPEER}
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.9.9.187.1.2.5.1.22.{#SNMPINDEX}
+        key: bgp.peer.accepted_prefixes[{#SNMPINDEX}]
+        delay: 5m
+    valuemaps:
+    - uuid: 0c3331f5fada471a89b3a64324d3e520
+      name: BGP Session State
+      mappings:
+      - value: '1'
+        newvalue: Idle
+      - value: '2'
+        newvalue: Connect
+      - value: '3'
+        newvalue: OpenSent
+      - value: '4'
+        newvalue: OpenConfirm
+      - value: '5'
+        newvalue: Active
+      - value: '6'
+        newvalue: Established
