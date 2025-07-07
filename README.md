@@ -89,7 +89,7 @@ Prefijos aceptados (cbgpPeer2AcceptedPrefixes)
 
 🌐 Comunidad y autor
 
-Desarrollado por el equipo técnico del CRIX – https://crix.crContact: Carlos Pérez @C4rlosp
+Desarrollado por: Carlos Pérez @C4rlosp
 
 📝 Licencia
 
